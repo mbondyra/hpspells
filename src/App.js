@@ -12,7 +12,8 @@ class App extends Component {
     this.state = {
       mission: 0,
       nextMission: null,
-      lightsOn: true
+      lightsOn: true,
+      voldemortVisible:false
     }
     this.setCamera = this.setCamera.bind(this)
     this.levelUp = this.levelUp.bind(this)
@@ -39,7 +40,8 @@ class App extends Component {
 
   turnOnTheLights() {
     this.setState({
-      lightsOn: true
+      lightsOn: true,
+      voldemortVisible: true
     })
   }
 
@@ -61,18 +63,16 @@ class App extends Component {
     const activeSpot = SPELLS[Math.min(this.state.mission, 4)].cameraSpot
     const activeTheme = this.state.lightsOn ? THEME.light : THEME.dark
     return (
-      <a-scene vr-mode-ui="enabled: true" light="defaultLightsEnabled: false">
+      <a-scene>
         <Assets />
         <Environment />
         <Garden onDementorsDefeated={this.levelUp} onOpen={this.onDoorOpen}/>
-        <Library turnOnTheLights={this.turnOnTheLights}/>
+        <Library turnOnTheLights={this.turnOnTheLights} voldemortVisible={this.state.voldemortVisible}/>
         <Camera setCamera={this.setCamera}
                 nextSpot={nextSpot}
-                activeSpot={activeSpot}></Camera>
-        <a-sky material={`color: ${activeTheme[0]}`}>
-        </a-sky>
-        <a-light type="ambient" color={activeTheme[1]}>
-        </a-light>
+                activeSpot={activeSpot}/>
+        <a-sky material={`color: ${activeTheme[0]}`}/>
+        <a-light type="ambient" color={activeTheme[1]}/>
       </a-scene>
     );
   }

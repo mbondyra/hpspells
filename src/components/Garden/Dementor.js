@@ -21,8 +21,7 @@ class Dementor extends Component {
                 position={position}
                 rotation={rotation}
                 scale="0.03 0.03 0.03"
-                model-opacity="1"
-                cursor-listener >
+      >
         <a-animation attribute="position"
                      dur="3000"
                      to={to}
