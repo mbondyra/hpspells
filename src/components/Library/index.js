@@ -19,7 +19,7 @@ class Library extends Component {
                 rotation="0 90 0">
         <a-collada-model  id="candle" onClick={this.props.turnOnTheLights} src="#candle" position="9 0 -13"
                   scale="4 4 4"></a-collada-model>
-        <a-collada-model  id="voldemort" src="./models/voldemort/model.dae" position="25 0 -15" rotate="0 0 90" rotation="90 45 90" scale="0.01 0.01 0.01"></a-collada-model>
+        <a-collada-model  id="voldemort" src="./models/voldemort/model.dae" position="10 0 -6" rotate="0 0 90" rotation="90 300 90" scale="0.01 0.01 0.01"></a-collada-model>
       </a-collada-model>)
   }
 }
