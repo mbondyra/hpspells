@@ -33,8 +33,12 @@ class Camera extends Component {
                          radiusOuter: 0.03"
                   material="color: white; shader: flat">
         </a-entity>
-        <a-entity id="hintbox" geometry="primitive:plane;height:0.15;width:0.6" position="-0.5 0.6522813645124185 -0.5"
-                  material="color:maroon;opacity:0.8" text="width:0.5;align:center;wrapCount:15;color:white"></a-entity>
+        <a-entity id="hintbox"
+                  geometry="primitive:plane; height:0.1; width:0.8"
+                  position="0.0 -0.35 -0.5"
+                  material="color:maroon; opacity:0.8"
+                  text="width:0.5; align:center; wrapCount:15; color:white">
+        </a-entity>
       </a-camera>
       {this.props.nextSpot &&
       <a-animation attribute="position"
