@@ -5,26 +5,26 @@ export const THEME = {
 }
 export const SPELLS = [{
   name: 'expectoPatronum',
-  cameraSpot: '0 1.5 -3',
+  cameraSpot: '0 0.0 -3',
   label: 'expecto patronum',
 },
   {
     name: 'alohomora',
     label: 'alohomora',
-    cameraSpot: "-0.75 1.5 -20",
+    cameraSpot: "-0.75 0.0 -20",
   },
   {
     name: 'lumos',
     label: 'lumos',
-    cameraSpot: '-0.75 1.5 -38',
+    cameraSpot: '-0.75 0.0 -38',
   },
   {
     name: 'avadaKedavra',
     label: 'avada kedavra',
-    cameraSpot: '-0.75 1.5 -38',
+    cameraSpot: '-0.75 0.0 -38',
   },
   {
     name: 'expelliarmus',
     label: 'expelliarmus',
-    cameraSpot: '-0.75 1.5 -38',
+    cameraSpot: '-0.75 0.0 -38',
   }]
