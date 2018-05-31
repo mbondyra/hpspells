@@ -6,6 +6,20 @@ import Garden from './components/Garden'
 import Library from './components/Library'
 import Sky from './components/Sky'
 
+window.AFRAME.registerComponent('auto-init-vr', {
+  init: function () {
+
+    var scene = this;
+
+    scene.el.addEventListener('loaded', function () {
+      setTimeout(function(){
+        console.log('Automatically entering VR...');
+        scene.el.sceneEl.enterVR();
+      },1000);
+    });
+  }
+});
+
 const THEME = {
   light: ["#969cff","#BBB"],
   dark: ['#0a0b33', "#2b354c"],
@@ -96,7 +110,7 @@ class App extends Component {
     const activeTheme = this.state.lightsOn ? THEME.light : THEME.dark
     console.log("mission", this.state.mission)
     return (
-      <a-scene light="defaultLightsEnabled: false">
+      <a-scene vr-mode-ui="enabled: true" light="defaultLightsEnabled: false">
         <Assets />
           <Environment />
           <Garden onDementorsDefeated={this.levelUp} onOpen={this.onDoorOpen}/>
@@ -115,6 +129,9 @@ class App extends Component {
     );
   }
 }
+
+
+
 
 
 
