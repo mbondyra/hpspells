@@ -20,13 +20,12 @@ class Garden extends Component {
     }
   }
 
-
   render(){
-    return <a-entity id="garden-model" collada-model="#garden" position="1 0 -13" rotation="0 180 0">
+    return <a-collada-model id="garden-model" src="#garden" position="1 0 -13" rotation="0 180 0">
       <Dementor onDefeat={this.onDementorsDefeated} position="-3 1 -4" rotation="90 -30 0" to="0 1 -7" runTo="-30 40 100"/>
       <Dementor onDefeat={this.onDementorsDefeated}  position="5 1 -4" rotation="90 30 0" to="2 1 -7" runTo="50 40 100"/>
       <Door onOpen={this.props.onOpen}/>
-    </a-entity>
+    </a-collada-model >
   }
 };
 export default Garden

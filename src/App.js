@@ -6,6 +6,10 @@ import Garden from './components/Garden'
 import Library from './components/Library'
 import Sky from './components/Sky'
 
+const THEME = {
+  light: ["#969cff","#BBB"],
+  dark: ['#0a0b33', "#2b354c"],
+}
 const SPELLS = [{
   name: 'expectoPatronum',
   cameraSpot: '0 1.5 -3',
@@ -36,7 +40,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      mission: 2,
+      mission: 0,
       nextMission: null,
       lightsOn: true
     }
@@ -88,30 +92,30 @@ class App extends Component {
     const nextSpot = this.state.nextMission && SPELLS[Math.min(this.state.nextMission, 4)] && SPELLS[Math.min(this.state.nextMission, 4)].cameraSpot
     const activeSpot = SPELLS[Math.min(this.state.mission, 4)].cameraSpot
 
+    const nonactiveTheme = this.state.lightsOn ? THEME.dark :THEME.light
+    const activeTheme = this.state.lightsOn ? THEME.light : THEME.dark
     console.log("mission", this.state.mission)
     return (
-      <a-scene light="defaultLightsEnabled: false" raycaster-autorefresh>
+      <a-scene light="defaultLightsEnabled: false">
         <Assets />
-
-        <a-entity>
           <Environment />
-          { this.state.mission < 2 &&
-            <Garden onDementorsDefeated={this.levelUp} onOpen={this.onDoorOpen}/>
-          }
-          {
-            this.state.mission > 0 &&
-            <Library turnOnTheLights={this.turnOnTheLights}/>
-          }
-          <Sky lightsOn={this.state.lightsOn}/>
+          <Garden onDementorsDefeated={this.levelUp} onOpen={this.onDoorOpen}/>
+          <Library turnOnTheLights={this.turnOnTheLights}/>
+
           <Camera setCamera={this.setCamera}
                   nextSpot={nextSpot}
                   activeSpot={activeSpot}></Camera>
-        </a-entity>
 
-
+          <a-sky
+            material={`color: ${activeTheme[0]}`}>
+          </a-sky>
+          <a-light type="ambient" color={activeTheme[1]}>
+          </a-light>
       </a-scene>
     );
   }
 }
+
+
 
 export default App;

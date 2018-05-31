@@ -15,8 +15,8 @@ class Door extends Component {
   render() {
     return (
       <a-entity cursor-listener ref={this.door} onClick={this.alohomora} rotation="0 0 0" scale="2.8 2.4 2"  position="0.2 -0.5 12">
-        <a-entity id="door-model" collada-model="#door"
-                  scale="0.5 0.5 0.5" rotation="0 0 0"></a-entity>
+        <a-collada-model id="door-model" src="#door"
+                          scale="0.5 0.5 0.5" rotation="0 0 0"></a-collada-model>
         <a-animation attribute="rotation"
                      dur="3000"
                      to="0 -90 0"

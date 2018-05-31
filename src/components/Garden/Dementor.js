@@ -15,9 +15,9 @@ class Dementor extends Component {
   render() {
     const {position, rotation, to, runTo} = this.props
     return (
-      <a-entity className="dementor-model"
+      <a-collada-model  className="dementor-model"
                 onClick={this.expectoPatronum}
-                collada-model="#dementor"
+                src="#dementor"
                 position={position}
                 rotation={rotation}
                 scale="0.03 0.03 0.03"
@@ -43,7 +43,7 @@ class Dementor extends Component {
                      repeat="indefinite"></a-animation>
 
 
-      </a-entity>
+      </a-collada-model>
     );
   }
 }
