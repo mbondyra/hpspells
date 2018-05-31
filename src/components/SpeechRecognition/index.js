@@ -1,24 +1,43 @@
-var recognition = new speechRecognition()
+const recognition = new window.webkitSpeechRecognition()
 recognition.lang = 'en-US'
 recognition.interimResults = true
 recognition.maxAlternatives = 3
-
-
-recognition.onstart = () => { console.log('Listening...') }
-recognition.onresult = (ev) => { console.log(ev.results[0][0].transcript) }
-recognition.onend = () => { console.log('I am not listening anymore!') }
-
-const dementor = document.querySelector('#dementor')
-dementor.addEventListener('click', () => {
-  recognition.start()
-})
-
-recognition.onresult = (ev) => {
-  const theBestTranscript = ev.result[0][0].transcript
-  resultbox.setAttribute('text', {
-    value: theBestTranscript
+let recognizing = false;
+recognition.onstart = () => {
+  console.log('Listening...')
+  document.querySelector('#hintbox').setAttribute('material', {
+    color: 'darkgreen'
   });
-  if (theBestTranscript.includes('expecto patronum')){
-    dementor.emit('expectoPatronum')
+  recognizing = true
+}
+recognition.onend = () => {
+  document.querySelector('#hintbox').setAttribute('material', {
+    color: 'maroon'
+  });
+  recognizing = false
+}
+
+window.startRecognition = () => {
+  if (recognizing === false) {
+    recognition.start()
   }
 }
+
+recognition.onresult = (ev) => {
+  const theBestTranscript = ev.results[0][0].transcript
+  document.querySelector('#hintbox').setAttribute('text', {
+    value: theBestTranscript
+  });
+  if (theBestTranscript.includes('expecto patronum')) {
+    document.querySelector('#dementor1').emit('expectoPatronum')
+    document.querySelector('#dementor2').emit('expectoPatronum')
+  } else if (theBestTranscript.includes('alohomora')) {
+    document.querySelector('#door').emit('alohomora')
+  } else if (theBestTranscript.includes('lumos')){
+    document.querySelector('#lamp').emit('lumos')
+  } else if (theBestTranscript.includes('avada kedavra')){
+    document.querySelector('#voldemort').emit('avadaKedavra')
+  }
+}
+
+window.recognition = recognition

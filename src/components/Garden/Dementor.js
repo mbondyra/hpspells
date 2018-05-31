@@ -4,19 +4,19 @@ class Dementor extends Component {
   constructor() {
     super();
     this.state = {}
-    this.expectoPatronum = this.expectoPatronum.bind(this)
+    this.castASpell = this.castASpell.bind(this)
   }
 
-  expectoPatronum(ev) {
-    ev.target.emit('expectoPatronum')
-    setTimeout(()=>{this.props.onDefeat()} , 2000)
+  castASpell(){
+    window.startRecognition()
   }
 
   render() {
-    const {position, rotation, to, runTo} = this.props
+    const {position, rotation, to, runTo, id} = this.props
     return (
-      <a-collada-model  className="dementor-model"
-                onClick={this.expectoPatronum}
+      <a-collada-model className="dementor-model"
+                id={id}
+                onClick={this.castASpell}
                 src="#dementor"
                 position={position}
                 rotation={rotation}
