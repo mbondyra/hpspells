@@ -36,14 +36,12 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      mission: 0,
+      mission: 2,
       nextMission: null,
-      loaded: false,
       lightsOn: true
     }
     this.setCamera = this.setCamera.bind(this)
     this.levelUp = this.levelUp.bind(this)
-    this.onLoaded = this.onLoaded.bind(this)
     this.onDementorsDefeated = this.onDementorsDefeated.bind(this)
     this.onDoorOpen = this.onDoorOpen.bind(this)
     this.turnOffTheLights = this.turnOffTheLights.bind(this)
@@ -76,10 +74,6 @@ class App extends Component {
     this.setState({nextMission: this.state.mission + 1})
   }
 
-  onLoaded() {
-    this.setState({loaded: true})
-  }
-
   setCamera() {
     if (this.state.nextMission){
       this.setState({
@@ -96,7 +90,7 @@ class App extends Component {
 
     console.log("mission", this.state.mission)
     return (
-      <a-scene loaded={this.onLoaded} light="defaultLightsEnabled: false" raycaster-autorefresh>
+      <a-scene light="defaultLightsEnabled: false" raycaster-autorefresh>
         <Assets />
 
         <a-entity>
