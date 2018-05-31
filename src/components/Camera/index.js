@@ -50,6 +50,10 @@ class Camera extends Component {
                 material="color: white; shader: flat"
       >
       </a-entity>
+      <a-entity id="hintbox" geometry="primitive: plane; height: 0.15; width: 0.6" position="-0.5 -0.6 -1"
+                material="color: maroon; opacity: 0.8"
+                text="value: ; width: 0.5; baseline: center; yOffset:0; align: center; wrapCount:15; color: white" >
+      </a-entity>
 
 
     </a-entity>
