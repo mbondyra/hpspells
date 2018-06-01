@@ -13,14 +13,20 @@ class Door extends Component {
   render() {
     return (
       <a-entity id="door" onClick={this.castASpell} rotation="0 0 0" scale="2.8 2.4 2"  position="0.2 -0.5 12">
-        <a-collada-model id="door-model" src="#door"
-                          scale="0.5 0.5 0.5" rotation="0 0 0"></a-collada-model>
+        <a-collada-model
+          id="door-model"
+          src="#door"
+          scale="0.5 0.5 0.5"
+          rotation="0 0 0">
+        </a-collada-model>
+        {this.props.open &&
         <a-animation attribute="rotation"
                      dur="3000"
                      to="0 -90 0"
                      easing="linear"
-                     begin="alohomora"
+                     start="alohomora"
         ></a-animation>
+        }
       </a-entity>
 
     );

@@ -1,7 +1,7 @@
 
 export const THEME = {
   light: ["#969cff","#BBB"],
-  dark: ['#0a0b33', "#2b354c"],
+  dark: ['#0a0b33', "#0b1228"],
 }
 export const SPELLS = [{
   name: 'expectoPatronum',

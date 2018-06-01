@@ -16,7 +16,9 @@ class App extends Component {
       lightsOn: true,
       voldemortVisible: false,
       recognizing: false,
-      startedRecognizing: false
+      startedRecognizing: false,
+      doorOpen: false,
+      voldemortKilled: false
     }
     this.setCamera = this.setCamera.bind(this)
     this.levelUp = this.levelUp.bind(this)
@@ -68,7 +70,8 @@ class App extends Component {
       } else if (theBestTranscript.includes('lumos') && this.state.mission === 2){
         document.querySelector('#candle').emit('lumos')
         this.turnOnTheLights()
-      } else if (theBestTranscript.includes('avada kedavra') && this.state.mission === 3){
+      } else if (theBestTranscript.includes('Avada') && this.state.mission === 3){
+        console.log("yfadsafasfas")
         document.querySelector('#voldemort').emit('avadaKedavra')
         this.onAvadaKedavra()
       }
@@ -76,7 +79,6 @@ class App extends Component {
   }
 
   startRecognition(){
-
     if (this.state.recognizing === false) {
       this.recognition.start()
     }
@@ -89,10 +91,18 @@ class App extends Component {
   onDoorOpen() {
     this.levelUp()
     setTimeout(this.turnOffTheLights, 2000)
+    this.setState({
+      doorOpen: true
+    })
   }
 
   onAvadaKedavra() {
-    this.levelUp()
+    this.setState({
+      voldemortKilled: true
+    },
+      this.levelUp()
+    )
+
   }
 
   turnOffTheLights() {
@@ -104,7 +114,8 @@ class App extends Component {
   turnOnTheLights() {
     this.setState({
       lightsOn: true,
-      voldemortVisible: true
+      voldemortVisible: true,
+      nextMission: this.state.mission + 1
     })
   }
 
@@ -129,8 +140,8 @@ class App extends Component {
       <a-scene>
         <Assets />
         <Environment />
-        <Garden startRecognition={this.startRecognition}/>
-        <Library startRecognition={this.startRecognition} turnOnTheLights={this.turnOnTheLights} voldemortVisible={this.state.voldemortVisible}/>
+        <Garden open={this.state.doorOpen} startRecognition={this.startRecognition}/>
+        <Library voldemortKilled={this.state.voldemortKilled} startRecognition={this.startRecognition} turnOnTheLights={this.turnOnTheLights} voldemortVisible={this.state.voldemortVisible}/>
         <Camera setCamera={this.setCamera} nextSpot={nextSpot} activeSpot={activeSpot}/>
         <a-sky material={`color: ${activeTheme[0]}`}/>
         <a-light type="ambient" color={activeTheme[1]}/>
