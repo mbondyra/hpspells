@@ -14,10 +14,11 @@ class Dementor extends Component {
   render() {
     const {position, rotation, to, runTo, id} = this.props
     return (
-      <a-collada-model className="dementor-model"
+      <a-obj-model className="dementor-model"
                 id={id}
                 onClick={this.castASpell}
-                src="#dementor"
+                src="#dementor-obj"
+                   mtl="#dementor-mtl"
                 position={position}
                 rotation={rotation}
                 scale="0.03 0.03 0.03"
@@ -42,7 +43,7 @@ class Dementor extends Component {
                      repeat="indefinite"></a-animation>
 
 
-      </a-collada-model>
+      </a-obj-model>
     );
   }
 }
