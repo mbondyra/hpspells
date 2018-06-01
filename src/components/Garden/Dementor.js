@@ -8,7 +8,7 @@ class Dementor extends Component {
   }
 
   castASpell(){
-    window.startRecognition()
+    this.props.startRecognition()
   }
 
   render() {

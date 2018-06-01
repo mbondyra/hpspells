@@ -6,6 +6,8 @@ import Garden from './components/Garden'
 import Library from './components/Library'
 import {THEME, SPELLS} from './constants'
 
+
+
 class App extends Component {
   constructor() {
     super();
@@ -13,7 +15,8 @@ class App extends Component {
       mission: 0,
       nextMission: null,
       lightsOn: true,
-      voldemortVisible:false
+      voldemortVisible:false,
+      recognizing: false
     }
     this.setCamera = this.setCamera.bind(this)
     this.levelUp = this.levelUp.bind(this)
@@ -21,6 +24,60 @@ class App extends Component {
     this.onDoorOpen = this.onDoorOpen.bind(this)
     this.turnOffTheLights = this.turnOffTheLights.bind(this)
     this.turnOnTheLights = this.turnOnTheLights.bind(this)
+    this.startRecognition = this.startRecognition.bind(this)
+    this.initWebSpeech()
+  }
+
+  initWebSpeech() {
+    this.recognition = new window.webkitSpeechRecognition()
+    this.recognition.lang = 'en-US'
+    this.recognition.interimResults = true
+    this.recognition.maxAlternatives = 3
+    this.recognition.onstart = () => {
+      console.log('Listening...')
+      document.querySelector('#hintbox').setAttribute('material', {
+        color: 'darkgreen'
+      });
+      this.setState({
+        recognizing: true
+      })
+    }
+    this.recognition.onend = () => {
+      document.querySelector('#hintbox').setAttribute('material', {
+        color: 'maroon'
+      });
+      this.setState({
+        recognizing: false
+      })
+    }
+
+
+    this.recognition.onresult = (ev) => {
+      const theBestTranscript = ev.results[0][0].transcript
+      document.querySelector('#hintbox').setAttribute('text', {
+        value: theBestTranscript
+      });
+      if (theBestTranscript.includes('expecto patronum') && this.state.mission === 0) {
+        document.querySelector('#dementor1').emit('expectoPatronum')
+        document.querySelector('#dementor2').emit('expectoPatronum')
+        this.onDementorsDefeated()
+      } else if (theBestTranscript.includes('alohomora') && this.state.mission === 1) {
+        document.querySelector('#door').emit('alohomora')
+        this.onDoorOpen()
+      } else if (theBestTranscript.includes('lumos') && this.state.mission === 2){
+        document.querySelector('#candle').emit('lumos')
+        this.turnOnTheLights()
+      } else if (theBestTranscript.includes('avada kedavra') && this.state.mission === 3){
+        document.querySelector('#voldemort').emit('avadaKedavra')
+        this.onAvadaKedavra()
+      }
+    }
+  }
+
+  startRecognition(){
+    if (this.state.recognizing === false) {
+      this.recognition.start()
+    }
   }
 
   onDementorsDefeated() {
@@ -29,7 +86,16 @@ class App extends Component {
 
   onDoorOpen() {
     this.levelUp()
+    document.querySelector('#door').emit('alohomora')
     setTimeout(this.turnOffTheLights, 2000)
+  }
+
+  onLumos() {
+    this.levelUp()
+  }
+
+  onAvadaKedavra() {
+    this.levelUp()
   }
 
   turnOffTheLights() {
@@ -66,8 +132,8 @@ class App extends Component {
       <a-scene>
         <Assets />
         <Environment />
-        <Garden onDementorsDefeated={this.levelUp} onOpen={this.onDoorOpen}/>
-        <Library turnOnTheLights={this.turnOnTheLights} voldemortVisible={this.state.voldemortVisible}/>
+        <Garden onDementorsDefeated={this.levelUp} onOpen={this.onDoorOpen} startRecognition={this.startRecognition}/>
+        <Library turnOnTheLights={this.turnOnTheLights} startRecognition={this.startRecognition} voldemortVisible={this.state.voldemortVisible}/>
         <Camera setCamera={this.setCamera}
                 nextSpot={nextSpot}
                 activeSpot={activeSpot}/>
