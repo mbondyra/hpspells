@@ -3,7 +3,6 @@ import React, {Component} from 'react'
 class Door extends Component {
   constructor() {
     super();
-    this.door = React.createRef();
     this.castASpell = this.castASpell.bind(this)
   }
 
@@ -20,8 +19,7 @@ class Door extends Component {
                      dur="3000"
                      to="0 -90 0"
                      easing="linear"
-                     //begin="alohomora"
-                     repeat="indefinite"
+                     begin="alohomora"
         ></a-animation>
       </a-entity>
 

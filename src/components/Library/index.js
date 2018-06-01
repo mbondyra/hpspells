@@ -24,7 +24,13 @@ class Library extends Component {
           this.props.voldemortVisible &&
           <a-collada-model  onClick={this.castASpell}  id="voldemort" src="./models/voldemort/model.dae" position="10 0 -6" rotate="0 0 90"
                            rotation="90 300 90" scale="0.01 0.01 0.01">
-            <a-animation from="10 1000 -6" to="10 0 -6" attribute="position"/>
+            <a-animation
+              attribute="rotation"
+              dur="3000"
+              to="0 0 0"
+              easing="linear"
+              begin="avadaKedavra"
+              />
           </a-collada-model>
         }
       </a-collada-model>)
