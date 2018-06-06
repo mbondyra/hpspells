@@ -8,7 +8,7 @@ class SpeechRecognition {
     this.recognition.onend = onEnd
     this.recognition.onresult = onResult
   }
-  onStart(){
+  start(){
     this.recognition.start()
   }
 }

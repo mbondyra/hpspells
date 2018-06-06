@@ -5,7 +5,7 @@ import Camera from './components/Camera'
 import Garden from './components/Garden'
 import Library from './components/Library'
 import {THEME, SPELLS} from './constants'
-
+import ASpeechRecognition from './SpeechRecognition'
 
 class App extends Component {
   constructor() {
@@ -27,48 +27,47 @@ class App extends Component {
     this.turnOffTheLights = this.turnOffTheLights.bind(this)
     this.turnOnTheLights = this.turnOnTheLights.bind(this)
     this.startRecognition = this.startRecognition.bind(this)
-    this.initWebSpeech()
+    this.onStartSpeech = this.onStartSpeech.bind(this)
+    this.onEndSpeech = this.onEndSpeech.bind(this)
+    this.onResult = this.onResult.bind(this)
+    this.recognition = new ASpeechRecognition(this.onStartSpeech, this.onEndSpeech, this.onResult)
   }
 
-  initWebSpeech() {
-    this.recognition = new window.webkitSpeechRecognition()
-    this.recognition.lang = 'en-US'
-    this.recognition.interimResults = true
-    this.recognition.maxAlternatives = 3
-    this.recognition.onstart = () => {
-      this.setState({
+  onStartSpeech(){
+     this.setState({
         recognizing: true
       })
       console.log('Listening...')
       document.querySelector('#hintbox').setAttribute('material', {
         color: 'darkgreen'
       });
-    }
-    this.recognition.onend = () => {
-      this.setState({
-        recognizing: false
-      })
-      document.querySelector('#hintbox').setAttribute('material', {
-        color: 'maroon'
-      });
-      console.log('End of listenning...')
-    }
-
-    this.recognition.onresult = (ev) => {
-      const theBestTranscript = ev.results[0][0].transcript
-      document.querySelector('#hintbox').setAttribute('text', {
-        value: theBestTranscript
-      })
-      SPELLS.forEach((spell, index)=>{
-        if (theBestTranscript.includes(spell.label) && this.state.mission === index){
-          spell.objects.forEach((obj)=>{
-            document.querySelector(obj).emit(spell.name)
-          })
-          this[spell.callback]()
-        }
-      })
-    }
   }
+
+  onEndSpeech(){
+    this.setState({
+      recognizing: false
+    })
+    document.querySelector('#hintbox').setAttribute('material', {
+      color: 'maroon'
+    });
+    console.log('End of listenning...')
+  }
+
+  onResult(ev){
+    const theBestTranscript = ev.results[0][0].transcript
+    document.querySelector('#hintbox').setAttribute('text', {
+      value: theBestTranscript
+    })
+    SPELLS.forEach((spell, index)=>{
+      if (theBestTranscript.includes(spell.label) && this.state.mission === index){
+        spell.objects.forEach((obj)=>{
+          document.querySelector(obj).emit(spell.name)
+        })
+        this[spell.callback]()
+      }
+    })
+  }
+  
 
   startRecognition(){
     if (this.state.recognizing === false) {
