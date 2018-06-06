@@ -25,16 +25,17 @@ export const SPELLS = [{
     callback: 'turnOnTheLights'
   },
   {
-    name: 'avadaKedavra',
-    label: 'avada kedavra',
-    cameraSpot: '-0.75 1 -38',
-    objects: ['#voldemort'],
-    callback: 'onAvadaKedavra'
-  },
-  {
     name: 'expelliarmus',
     label: 'expelliarmus',
     cameraSpot: '-0.75 1 -38',
     objects: ['#voldemort'],
     callback: 'onAvadaKedavra'
-  }]
+  },
+  {
+    name: 'avadaKedavra',
+    label: 'avada kedavra',
+    cameraSpot: '-0.75 1 -38',
+    objects: ['#voldemort'],
+    callback: 'onAvadaKedavra'
+  }
+]

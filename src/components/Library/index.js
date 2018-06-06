@@ -26,6 +26,7 @@ class Library extends Component {
           position="9 0 -13"               
           scale="4 4 4"></a-collada-model>
 
+        <a-light type="point" light="type: spot; color: #fff4bb; intensity: 0.96; decay: 0.5; shadowCameraFar: 50; shadowCameraFov: 10" position="9.730664511180809 2 -11.489144572147127"></a-light>
         <a-collada-model onClick={this.castASpell}
                          visible={this.props.voldemortVisible}
                          id="voldemort"

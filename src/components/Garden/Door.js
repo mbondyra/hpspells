@@ -12,7 +12,7 @@ class Door extends Component {
 
   render() {
     return (
-      <a-entity id="door" onClick={this.castASpell} rotation="0 0 0" scale="2.8 2.4 2"  position="0.2 -0.5 12">
+      <a-entity id="door" className="clickable" onClick={this.castASpell} rotation="0 0 0" scale="2.8 2.4 2"  position="0.2 -0.5 12">
         <a-collada-model
           id="door-model"
           src="#door"
