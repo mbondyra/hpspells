@@ -70,7 +70,6 @@ class App extends Component {
     }
   }
 
-
   startRecognition(){
     if (this.state.recognizing === false) {
       this.recognition.start()

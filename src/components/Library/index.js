@@ -19,12 +19,17 @@ class Library extends Component {
                        scale="1.2 1.2 1.2"
                        position="11.5 0 -28"
                        rotation="0 90 0">
-        <a-collada-model id="candle" onClick={this.castASpell} src="#candle" position="9 0 -13"
-                         scale="4 4 4"></a-collada-model>
+        <a-collada-model id="candle"
+          className="clickable"  
+          onClick={this.castASpell} 
+          src="#candle" 
+          position="9 0 -13"               
+          scale="4 4 4"></a-collada-model>
 
         <a-collada-model onClick={this.castASpell}
                          visible={this.props.voldemortVisible}
                          id="voldemort"
+                         className="clickable" 
                          src="./models/voldemort/model.dae"
                          position="10 0 -6" rotate="0 0 90"
                          rotation="90 300 90" scale="0.01 0.01 0.01">

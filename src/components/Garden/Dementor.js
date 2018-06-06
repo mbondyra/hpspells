@@ -14,7 +14,7 @@ class Dementor extends Component {
   render() {
     const {position, rotation, to, runTo, id} = this.props
     return (
-      <a-obj-model className="dementor-model"
+      <a-obj-model className="dementor-model clickable"
                 id={id}
                 onClick={this.castASpell}
                 src="#dementor-obj"

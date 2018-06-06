@@ -27,7 +27,6 @@ class Camera extends Component {
       <a-camera look-controls-enabled="true"
                 wasd-controls-enabled="true">
         <a-entity cursor="fuse: true; fuseTimeout: 1000"
-                  raycaster="interval: 2000"
                   position="0 0 -1"
                   geometry="primitive: ring;
                          radiusInner: 0.02;
