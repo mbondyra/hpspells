@@ -54,29 +54,22 @@ class App extends Component {
       console.log('End of listenning...')
     }
 
-
     this.recognition.onresult = (ev) => {
       const theBestTranscript = ev.results[0][0].transcript
       document.querySelector('#hintbox').setAttribute('text', {
         value: theBestTranscript
-      });
-      if (theBestTranscript.includes('expecto patronum') && this.state.mission === 0) {
-        document.querySelector('#dementor1').emit('expectoPatronum')
-        document.querySelector('#dementor2').emit('expectoPatronum')
-        this.onDementorsDefeated()
-      } else if (theBestTranscript.includes('alohomora') && this.state.mission === 1) {
-        document.querySelector('#door').emit('alohomora')
-        this.onDoorOpen()
-      } else if (theBestTranscript.includes('lumos') && this.state.mission === 2){
-        document.querySelector('#candle').emit('lumos')
-        this.turnOnTheLights()
-      } else if (theBestTranscript.includes('Avada') && this.state.mission === 3){
-        console.log("yfadsafasfas")
-        document.querySelector('#voldemort').emit('avadaKedavra')
-        this.onAvadaKedavra()
-      }
+      })
+      SPELLS.forEach((spell, index)=>{
+        if (theBestTranscript.includes(spell.label) && this.state.mission === index){
+          spell.objects.forEach((obj)=>{
+            document.querySelector(obj).emit(spell.name)
+          })
+          this[spell.callback]()
+        }
+      })
     }
   }
+
 
   startRecognition(){
     if (this.state.recognizing === false) {
