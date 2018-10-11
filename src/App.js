@@ -54,7 +54,7 @@ class App extends Component {
   }
 
   onResult(ev){
-    const theBestTranscript = ev.results[0][0].transcript
+    const theBestTranscript = ev.results[0][0].transcript.toLowerCase()
     document.querySelector('#hintbox').setAttribute('text', {
       value: theBestTranscript
     })
